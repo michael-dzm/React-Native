@@ -15,6 +15,7 @@ import {
   ToolbarAndroid,
   TouchableHighlight,
   Alert,
+  ToastAndroid,
 } from 'react-native';
 
 
@@ -63,11 +64,24 @@ class ListViewBasics extends Component {
       <View style={{flex: 1, paddingTop: 20}}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text style={{padding:10}}>{rowData}</Text>}
+          renderRow={this._renderItem.bind(this)}
         />
       </View>
     );
   }
+
+  _renderItem(rowData, sectionID, rowID){
+    return(
+        <TouchableHighlight onPress={() => this._onPressItem(rowData)}>
+          <Text style={{padding:10}}>{"data:" + rowData +" rowId:"+ rowID + "sectionId:" + sectionID}</Text>
+        </TouchableHighlight>
+    );
+  }
+
+  _onPressItem(rowData){
+    ToastAndroid.show(rowData, ToastAndroid.SHORT);
+  }
+
 }
 
 export default class MyScene extends Component {

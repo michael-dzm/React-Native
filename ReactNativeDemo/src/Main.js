@@ -37,7 +37,7 @@ export default class ReactNativeDemo extends Component {
 
   constructor(props){
     super(props);
-    this.state = {selected:MyMainText};
+    this.state = {selectedTab:MyMainText};
     this._renderTabItem =  this._renderTabItem.bind(this);
     this.handleBack = this.handleBack.bind(this);
 
