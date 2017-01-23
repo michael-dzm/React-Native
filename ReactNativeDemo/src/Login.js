@@ -13,6 +13,26 @@ export default class MyScene extends Component {
   	super(props);
   	this.state = {account:'', password:''};
   }
+
+  //获取登录站点
+  getStations(account){
+    return fetch('http://www.dzgas.net:8671/anjian/v1/mobile/stations/account/' + account, {
+            method:'POST'
+            })
+            .then((response) => response.json())
+            .then((responseJson) => {
+              console.log(responseJson);
+              if(responseJson.statusCode === 200){
+                return responseJson.data;
+              }
+              return null;
+            })
+            .catch((error) => {
+              console.error(error);
+            })
+            .done();
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -34,7 +54,8 @@ export default class MyScene extends Component {
           underlayColor={'steelblue'} 
           activeOpacity={0.5} 
           onPress={() => {
-          	this.props.navigator.replacePrevious({id:'main'});
+            alert(JSON.stringify(this.getStations(this.state.account)));
+          	//this.props.navigator.replacePrevious({id:'main'});
           }}>
       		<Text>登录</Text>
     	</TouchableHighlight>
